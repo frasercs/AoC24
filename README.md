@@ -1,12 +1,12 @@
 # AoC24
 
-workflow
+## Workflow
 
-write code
-compile code (tsc)
-run code (node ./dist/day-{insertdayhere}/star{insertstarhere}.js)
-get star
-commit code
-push code
-don't test code
+write code <br />
+compile code (tsc) <br />
+run code (node ./dist/day-{insertdayhere}/star{insertstarhere}.js) <br />
+get star <br />
+commit code <br />
+push code <br />
+don't test code <br />
 repeat
