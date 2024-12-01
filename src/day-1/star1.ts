@@ -1,17 +1,21 @@
-const fs = require("fs");
+import * as fs from "fs";
 
 const lines: string[] = [];
 
-fs.readFile("input.txt", "utf8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
+fs.readFile(
+  "/home/fraser/AoC24/src/day-1/input.txt",
+  "utf8",
+  (err: any, data: string) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    lines.push(...data.split("\n"));
+    processStar1Lines();
   }
-  lines.push(...data.split("\n"));
-  processLines();
-});
+);
 
-function processLines() {
+function processStar1Lines() {
   const arrOne: number[] = [];
   const arrTwo: number[] = [];
 
