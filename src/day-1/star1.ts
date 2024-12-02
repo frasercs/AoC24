@@ -11,15 +11,18 @@ fs.readFile(
       return;
     }
     lines.push(...data.split("\n"));
-    processStar1Lines();
+    processLines();
   }
 );
 
-function processStar1Lines() {
+function processLines() {
   const arrOne: number[] = [];
   const arrTwo: number[] = [];
 
   for (const line of lines) {
+    if (line === "") {
+      continue;
+    }
     const splitLine = line.split("   ");
     console.log(splitLine);
     arrOne.push(parseInt(splitLine[0]));

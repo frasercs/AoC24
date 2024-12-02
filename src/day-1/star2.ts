@@ -20,6 +20,9 @@ function processLines(): void {
   const arrTwo: number[] = [];
 
   for (const line of inputLines) {
+    if (line === "") {
+      continue;
+    }
     const splitLine = line.split("   ");
     arrOne.push(parseInt(splitLine[0]));
     arrTwo.push(parseInt(splitLine[1]));

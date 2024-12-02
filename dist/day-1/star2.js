@@ -13,6 +13,9 @@ function processLines() {
     const arrOne = [];
     const arrTwo = [];
     for (const line of inputLines) {
+        if (line === "") {
+            continue;
+        }
         const splitLine = line.split("   ");
         arrOne.push(parseInt(splitLine[0]));
         arrTwo.push(parseInt(splitLine[1]));
