@@ -42,16 +42,16 @@ function processLines() {
     }
     console.log(count);
 }
-function isSafe(values, testing) {
+function isSafe(values, alreadyFailed) {
     let increasing = false;
     let decreasing = false;
     for (let i = 1; i < values.length; i++) {
         const diff = values[i] - values[i - 1];
         if (diff > 3 || diff < -3) {
-            if (!testing) {
-                const test = values;
-                test.splice(i, 1);
-                if (isSafe(test, true)) {
+            if (!alreadyFailed) {
+                const testValues = values;
+                testValues.splice(i, 1);
+                if (isSafe(testValues, true)) {
                     return true;
                 }
                 else {
@@ -61,65 +61,75 @@ function isSafe(values, testing) {
             return false;
         }
         if (diff > 0) {
-            if (decreasing && !testing) {
-                const test = values;
-                //remove the value that is causing the issue
-                test.splice(i, 1);
-                //check if the array is still decreasing
-                if (isSafe(test, true)) {
+            increasing = true;
+            if (decreasing && !alreadyFailed) {
+                const testValues = values.slice();
+                const testValuesnless1 = values.slice();
+                testValuesnless1.splice(i - 1, 1);
+                testValues.splice(i, 1);
+                if (isSafe(testValues, true)) {
                     return true;
                 }
                 else {
-                    return false;
+                    if (isSafe(testValuesnless1, true)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
             }
             else if (decreasing) {
                 return false;
             }
-            else {
-                increasing = true;
-            }
         }
         else if (diff < 0) {
-            if (increasing && !testing) {
-                const test = values;
-                //remove the value that is causing the issue
-                test.splice(i, 1);
-                //check if the array is still increasing
-                if (isSafe(test, true)) {
+            decreasing = true;
+            if (increasing && !alreadyFailed) {
+                const testValues = values.slice();
+                const testValuesnless1 = values.slice();
+                testValuesnless1.splice(i - 1, 1);
+                testValues.splice(i, 1);
+                if (isSafe(testValues, true)) {
                     return true;
                 }
                 else {
-                    return false;
+                    if (isSafe(testValuesnless1, true)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
             }
             else if (increasing) {
                 return false;
             }
-            else {
-                decreasing = true;
-            }
         }
         else {
-            if (!testing) {
-                const test = values;
-                //remove the value that is causing the issue
-                test.splice(i, 1);
-                //check if the array now works
-                if (isSafe(test, true)) {
+            if (!alreadyFailed) {
+                const testValues = values.slice();
+                const testValuesnless1 = values.slice();
+                testValuesnless1.splice(i - 1, 1);
+                testValues.splice(i, 1);
+                if (isSafe(testValues, true)) {
                     return true;
                 }
                 else {
-                    return false;
+                    if (isSafe(testValuesnless1, true)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
             }
+        }
+        if (increasing && decreasing) {
             return false;
         }
-    }
-    if (increasing && decreasing) {
-        return false;
-    }
-    else {
-        return true;
+        else {
+            return true;
+        }
     }
 }
