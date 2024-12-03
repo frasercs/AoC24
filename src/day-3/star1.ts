@@ -16,21 +16,21 @@ fs.readFile(
 );
 
 function processLines() {
-    let sum: number = 0;
-    const regexp: RegExp = /mul\((\d{1,3}),(\d{1,3})\)/g;
-  
-    for (const line of lines) {
-      if (line === "") {
-        continue;
-      }
-  
-      let match;
-      while ((match = regexp.exec(line)) !== null) {
-        const num1 = parseInt(match[1]);
-        const num2 = parseInt(match[2]);
-        sum += num1 * num2;
-      }
+  let sum: number = 0;
+  const regexp: RegExp = /mul\((\d{1,3}),(\d{1,3})\)/g;
+
+  for (const line of lines) {
+    if (line === "") {
+      continue;
     }
-  
-    console.log(sum);
+
+    let match;
+    while ((match = regexp.exec(line)) !== null) {
+      const num1 = parseInt(match[1]);
+      const num2 = parseInt(match[2]);
+      sum += num1 * num2;
+    }
   }
+
+  console.log(sum);
+}
