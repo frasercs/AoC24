@@ -17,28 +17,20 @@ fs.readFile(
 
 function processLines() {
     let sum: number = 0;
-    const match = [];
-    const nums = [];
-  for (const line of lines) {
-    if (line === "") {
-      continue;
-    }
-    const regexp: RegExp = /mul\(\d{1,3}\,\d{1,3}\)/g;
-    match.push(line.match(regexp));
-  }
-  for (const mul of match[0]!) {
-    if (mul === "") {
+    const regexp: RegExp = /mul\((\d{1,3}),(\d{1,3})\)/g;
+  
+    for (const line of lines) {
+      if (line === "") {
         continue;
+      }
+  
+      let match;
+      while ((match = regexp.exec(line)) !== null) {
+        const num1 = parseInt(match[1]);
+        const num2 = parseInt(match[2]);
+        sum += num1 * num2;
+      }
     }
-    const regexp: RegExp = /\(\d{1,3}\,\d{1,3}\)/g;
-    nums.push(mul.match(regexp));
+  
+    console.log(sum);
   }
-
-  for (const num of nums!) {
-    const splitLine = (num!.toString()).split(",");
-    console.log(splitLine);
-    sum += parseInt(splitLine[0].substring(1)) * parseInt(splitLine[1].substring(-1));
-  }
-
-  console.log(sum);
-}
