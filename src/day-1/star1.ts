@@ -3,7 +3,7 @@ import * as fs from "fs";
 const lines: string[] = [];
 
 fs.readFile(
-  "/home/fraser/AoC24/src/day-1/input.txt",
+  "/home/fraser/AoC24/src/day-1/input.txt", // for at work: "C:/Users/Administrator/AoC/src/day-1/input.txt"
   "utf8",
   (err: any, data: string) => {
     if (err) {

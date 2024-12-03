@@ -35,49 +35,37 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const lines = [];
-fs.readFile("/home/fraser/AoC24/src/day-2/input.txt", "utf8", (err, data) => {
+fs.readFile("C:/Users/Administrator/AoC/src/day-3/input.txt", // for at work: "C:/Users/Administrator/AoC/src/day-3/input.txt" // for at home: /home/fraser/AoC24/src/day-3/input.txt
+"utf8", (err, data) => {
     if (err) {
         console.error(err);
         return;
     }
-    lines.push(...data.split("\n"));
+    lines.push(data);
     processLines();
 });
-let count = 0;
 function processLines() {
+    let sum = 0;
+    const match = [];
+    const nums = [];
     for (const line of lines) {
         if (line === "") {
             continue;
         }
-        const values = line.split(" ").map(Number);
-        if (isSafe(values)) {
-            count += 1;
-        }
+        const regexp = /mul\(\d{1,3}\,\d{1,3}\)/g;
+        match.push(line.match(regexp));
     }
-    console.log(count);
-}
-function isSafe(values) {
-    let increasing = false;
-    let decreasing = false;
-    for (let i = 1; i < values.length; i++) {
-        const diff = values[i] - values[i - 1];
-        if (diff > 3 || diff < -3) {
-            return false;
+    for (const mul of match[0]) {
+        if (mul === "") {
+            continue;
         }
-        if (diff > 0) {
-            decreasing = true;
-        }
-        else if (diff < 0) {
-            increasing = true;
-        }
-        else {
-            return false;
-        }
+        const regexp = /\(\d{1,3}\,\d{1,3}\)/g;
+        nums.push(mul.match(regexp));
     }
-    if (increasing && decreasing) {
-        return false;
+    for (const num of nums) {
+        const splitLine = (num.toString()).split(",");
+        console.log(splitLine);
+        sum += parseInt(splitLine[0].substring(1)) * parseInt(splitLine[1].substring(-1));
     }
-    else {
-        return true;
-    }
+    console.log(sum);
 }
